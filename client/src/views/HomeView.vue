@@ -1,0 +1,126 @@
+<template>
+  <div>
+    <header-view />
+    <!-- SHOWCASE  -->
+    <section class="bg-dark text-light">
+      <div class="wrapper-container d-flex flex-row flex-wrap">
+        <div class="image-div col-lg-6 col-sm-6">
+          <p class="fst-italic lead">
+            “Tell me what you eat, and I will tell you who you are.”
+          </p>
+          <img
+            src="./../photos/langing-pic.jpg"
+            alt="landing-picture"
+            class="img-fluid align-self-center"
+          />
+        </div>
+        <div class="main-text-container col-lg-6 col-sm-6">
+          <h1 class="title-div">
+            Easy <span class="text-danger">Recipes</span>
+          </h1>
+          <div class="paragraph-div lead">
+            A recipe is a set of instructions that describes how to prepare or
+            make something, especially a dish of prepared food. A sub-recipe or
+            subrecipe is a recipe for an ingredient that will be called for in
+            the instructions for the main recipe.
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- CARD-SECTION  -->
+    <section class="bg-light p-5">
+      <div class="row">
+        <div class="cards d-flex">
+          <div class="card" style="width: 18rem">
+            <img src="./../photos/food-1.jpg" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </p>
+              <a href="#" class="btn btn-primary">See recipe</a>
+            </div>
+          </div>
+          <div class="card" style="width: 18rem">
+            <img src="./../photos/food-2.jpg" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </p>
+              <a href="#" class="btn btn-primary">See recipe</a>
+            </div>
+          </div>
+          <div class="card" style="width: 18rem">
+            <img src="./../photos/food-3.jpg" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </p>
+              <a href="#" class="btn btn-primary">See recipe</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <FooterView />
+  </div>
+</template>
+
+<script>
+import HeaderView from './../components/HeaderView.vue';
+import FooterView from './../components/FooterView.vue';
+export default {
+  components: {
+    HeaderView,
+    FooterView,
+  },
+};
+</script>
+
+<style scoped>
+.image-div img {
+  max-width: 40%;
+  border-radius: 10%;
+  rotate: -10deg;
+  display: inline-block;
+}
+.image-div {
+  padding: 100px 0px 0px 200px;
+}
+
+.main-text-container {
+  padding: 0px 200px 0px 0px;
+}
+.cards {
+  gap: 50px;
+}
+/* remove padding when on sm screen  */
+@media (max-width: 768px) {
+  .main-text-container {
+    padding: 30px 0px 30px 0px;
+  }
+  .title-div {
+    text-align: center;
+  }
+}
+/* remove padding when on sm screen  */
+@media (max-width: 768px) {
+  .image-div {
+    padding: 0;
+    text-align: center;
+    padding-top: 30px;
+  }
+}
+.card-img-top {
+  height: 190px;
+  object-fit: cover;
+}
+.card {
+  box-shadow: 0 10px 40px 2px rgba(0, 0, 0, 0.3);
+}
+</style>
