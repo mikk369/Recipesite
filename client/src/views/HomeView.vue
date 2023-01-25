@@ -9,7 +9,7 @@
             “Tell me what you eat, and I will tell you who you are.”
           </p>
           <img
-            src="./../photos/langing-pic.jpg"
+            src="./../photos/langing-pic.webp"
             alt="landing-picture"
             class="img-fluid align-self-center"
           />
@@ -24,15 +24,22 @@
             subrecipe is a recipe for an ingredient that will be called for in
             the instructions for the main recipe.
           </div>
+          <div class="button-wrapper d-flex">
+            <router-link :to="{ name: 'signup' }">
+              <button class="btn btn-danger signup-button">
+                SignUp for Easy Recipes
+              </button>
+            </router-link>
+          </div>
         </div>
       </div>
     </section>
     <!-- CARD-SECTION  -->
     <section class="bg-light p-5">
-      <div class="row">
-        <div class="cards d-flex">
-          <div class="card" style="width: 18rem">
-            <img src="./../photos/food-1.jpg" class="card-img-top" alt="..." />
+      <div class="row-col-1">
+        <div class="cards d-flex flex-wrap">
+          <div class="card mx-auto col-md-12" style="width: 18rem">
+            <img src="./../photos/food-1.webp" class="card-img-top" alt="..." />
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
               <p class="card-text">
@@ -42,8 +49,8 @@
               <a href="#" class="btn btn-primary">See recipe</a>
             </div>
           </div>
-          <div class="card" style="width: 18rem">
-            <img src="./../photos/food-2.jpg" class="card-img-top" alt="..." />
+          <div class="card mx-auto col-md-12" style="width: 18rem">
+            <img src="./../photos/food-2.webp" class="card-img-top" alt="..." />
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
               <p class="card-text">
@@ -53,8 +60,8 @@
               <a href="#" class="btn btn-primary">See recipe</a>
             </div>
           </div>
-          <div class="card" style="width: 18rem">
-            <img src="./../photos/food-3.jpg" class="card-img-top" alt="..." />
+          <div class="card mx-auto col-md-12" style="width: 18rem">
+            <img src="./../photos/food-3.webp" class="card-img-top" alt="..." />
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
               <p class="card-text">
@@ -92,10 +99,18 @@ export default {
 .image-div {
   padding: 100px 0px 0px 200px;
 }
-
 .main-text-container {
   padding: 0px 200px 0px 0px;
 }
+.button-wrapper {
+  justify-content: center;
+  padding: 100px 0 30px 0;
+}
+.signup-button {
+  padding: 10px;
+  width: 200px;
+}
+
 .cards {
   gap: 50px;
 }
@@ -110,6 +125,13 @@ export default {
 }
 /* remove padding when on sm screen  */
 @media (max-width: 768px) {
+  .image-div {
+    padding: 0;
+    text-align: center;
+    padding-top: 30px;
+  }
+}
+@media (max-width: 1200px) {
   .image-div {
     padding: 0;
     text-align: center;
