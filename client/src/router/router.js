@@ -21,6 +21,16 @@ const routes = [
     name: 'addrecipe',
     component: () => import('./../views/AddRecipe.vue'),
   },
+  {
+    path: '/recipe',
+    name: 'recipe',
+    component: () => import('./../views/RecipiView.vue'),
+  },
+  {
+    path: '/favouriterecipes',
+    name: 'favouriterecipes',
+    component: () => import('../views/FavouriteRecipes.vue'),
+  },
 ];
 
 const router = createRouter({

@@ -143,6 +143,6 @@ export default {
   object-fit: cover;
 }
 .card {
-  box-shadow: 0 10px 40px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 10px 2px rgba(0, 0, 0, 0.3);
 }
 </style>
