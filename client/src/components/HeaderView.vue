@@ -14,7 +14,27 @@
     <div class="collapse navbar-collapse" id="nav-menu">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a href="/login" class="nav-link text-danger">Login</a>
+          <router-link to="/addrecipe" class="nav-link text-danger"
+            >Add Recipe</router-link
+          >
+        </li>
+        <li class="nav-item">
+          <router-link to="#" class="nav-link text-danger"
+            >Favourite Recipes</router-link
+          >
+        </li>
+        <li class="nav-item">
+          <router-link to="#" class="nav-link text-danger">Explore</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/login" class="nav-link text-danger"
+            >Login</router-link
+          >
+        </li>
+        <li class="nav-item">
+          <router-link to="/login" class="nav-link text-danger"
+            >Logout</router-link
+          >
         </li>
       </ul>
     </div>

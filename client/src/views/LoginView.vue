@@ -1,6 +1,6 @@
 <template>
-  <div class="form-wrapper d-flex align-items-center">
-    <form class="col-lg-2 form-class">
+  <div class="form-wrapper d-flex align-items-center justify-content-center">
+    <form class="col-lg-2">
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
         <input
@@ -33,7 +33,6 @@
 <script></script>
 <style scoped>
 .form-wrapper {
-  justify-content: center;
   height: 100vh;
 }
 </style>

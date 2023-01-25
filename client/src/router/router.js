@@ -16,6 +16,11 @@ const routes = [
     name: 'login',
     component: () => import('./../views/LoginView.vue'),
   },
+  {
+    path: '/addrecipe',
+    name: 'addrecipe',
+    component: () => import('./../views/AddRecipe.vue'),
+  },
 ];
 
 const router = createRouter({
