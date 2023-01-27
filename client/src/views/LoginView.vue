@@ -12,6 +12,7 @@
             class="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
+            v-model="email"
           />
           <div id="emailHelp" class="form-text">
             We'll never share your email with anyone else.
@@ -23,10 +24,17 @@
             type="password"
             class="form-control"
             id="exampleInputPassword1"
+            v-model="password"
           />
         </div>
 
-        <button type="submit" class="btn btn-primary mx-3">Login</button>
+        <button
+          type="submit"
+          class="btn btn-primary mx-3"
+          v-on:click.prevent="submitLogin()"
+        >
+          Login
+        </button>
         <router-link :to="{ name: 'Home' }">
           <button class="btn btn-danger">back</button>
         </router-link>
@@ -40,12 +48,31 @@
 </template>
 
 <script>
+import axios from 'axios';
 import HeaderView from './../components/HeaderView.vue';
 import FooterView from './../components/FooterView.vue';
 export default {
   components: {
     HeaderView,
     FooterView,
+  },
+  data() {
+    return {
+      email: '',
+      password: '',
+    };
+  },
+  methods: {
+    async submitLogin() {
+      const response = await axios.post(
+        'http://localhost:3000/api/v1/users/login',
+        {
+          email: this.email,
+          password: this.password,
+        }
+      );
+      console.log(response.data);
+    },
   },
 };
 </script>
