@@ -76,7 +76,6 @@ exports.login = async (req, res, next) => {
     // put token into cookie
     res.cookie('jwt', token, {
       expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
-      //cant use in development when using HTTPS then cookie will be created then use secure: true
       // secure: true,
       httpOnly: true,
     });
@@ -114,6 +113,8 @@ exports.protect = async (req, res, next) => {
           message: 'Unauthorized: Invalid token',
         });
       }
+      req.user = decoded;
+
       next();
     });
   } else {
@@ -133,7 +134,6 @@ exports.protect = async (req, res, next) => {
 exports.logout = async (req, res, next) => {
   res.cookie('jwt', 'logout', {
     expires: new Date(Date.now() + 3 * 1000),
-    //cant use in development when using HTTPS then cookie will be created then use secure: true
     // secure: true,
     httpOnly: true,
   });
