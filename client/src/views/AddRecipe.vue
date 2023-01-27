@@ -12,6 +12,7 @@
             class="form-control"
             id="exampleFormControlInput1"
             placeholder="Title"
+            v-model="title"
           />
         </div>
         <div class="form-group pt-3">
@@ -21,6 +22,7 @@
             class="form-control"
             id="exampleFormControlInput1"
             placeholder="Add country"
+            v-model="country"
           />
         </div>
         <div class="form-group pt-3">
@@ -30,6 +32,7 @@
             class="form-control"
             id="exampleFormControlInput1"
             placeholder="description"
+            v-model="desciption"
           />
         </div>
         <div class="form-group pt-3">
@@ -38,6 +41,7 @@
             class="form-control"
             id="exampleFormControlTextarea1"
             rows="3"
+            v-model="ingredients"
           ></textarea>
         </div>
         <div class="form-group pt-3">
@@ -46,6 +50,7 @@
             class="form-control"
             id="exampleFormControlTextarea1"
             rows="3"
+            v-model="directions"
           ></textarea>
         </div>
         <form class="pt-3">
@@ -57,7 +62,13 @@
           />
         </form>
         <div class="button-wrapper mt-3">
-          <button type="submit" class="btn btn-success mx-3">Add recipe</button>
+          <button
+            @click.prevent="addPost()"
+            type="submit"
+            class="btn btn-success mx-3"
+          >
+            Add recipe
+          </button>
           <router-link :to="{ name: 'Home' }">
             <button class="btn btn-danger">cancel</button>
           </router-link>
@@ -71,10 +82,36 @@
 <script>
 import HeaderView from './../components/HeaderView.vue';
 import FooterView from './../components/FooterView.vue';
+import axios from 'axios';
 export default {
   components: {
     HeaderView,
     FooterView,
+  },
+  data() {
+    return {
+      title: '',
+      country: '',
+      desciption: '',
+      ingredients: '',
+      directions: '',
+    };
+  },
+  methods: {
+    async addPost() {
+      await axios.post('http://localhost:3000/api/v1/posts', {
+        title: this.title,
+        country: this.country,
+        description: this.description,
+        ingredients: this.ingredients,
+        directions: this.directions,
+      });
+      (this.title = ''),
+        (this.country = ''),
+        (this.description = ''),
+        (this.ingredients = ''),
+        (this.directions = '');
+    },
   },
 };
 </script>

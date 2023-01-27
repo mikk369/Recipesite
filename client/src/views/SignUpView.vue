@@ -4,7 +4,14 @@
     <div class="form-wrapper d-flex align-items-center">
       <form class="col-lg-2 form-class">
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label"
+          <label for="exampleInputEmail1" class="form-label">Username</label>
+          <input
+            type="username"
+            class="form-control mb-3"
+            id="exampleInputUser1"
+            aria-describedby="userlHelp"
+          />
+          <label for="exampleInputUser1" class="form-label"
             >Email address</label
           >
           <input
@@ -45,6 +52,18 @@ export default {
   components: {
     HeaderView,
     FooterView,
+  },
+  data() {
+    return {
+      username: '',
+      email: '',
+      password: '',
+    };
+  },
+  methods: {
+    async signUp() {
+      await axios.post('');
+    },
   },
 };
 </script>

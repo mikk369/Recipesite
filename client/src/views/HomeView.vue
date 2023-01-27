@@ -38,37 +38,24 @@
     <section class="bg-light p-5">
       <div class="row-col-1">
         <div class="cards d-flex flex-wrap">
-          <div class="card mx-auto col-md-12" style="width: 18rem">
+          <div
+            class="card mx-auto col-md-12"
+            style="width: 18rem"
+            v-for="post in posts"
+            :key="post.id"
+          >
             <img src="./../photos/food-1.webp" class="card-img-top" alt="..." />
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+              <h5 class="card-title">{{ post.title }}</h5>
               <p class="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
+                {{ post.description }}
               </p>
-              <a href="#" class="btn btn-primary">See recipe</a>
-            </div>
-          </div>
-          <div class="card mx-auto col-md-12" style="width: 18rem">
-            <img src="./../photos/food-2.webp" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <a href="#" class="btn btn-primary">See recipe</a>
-            </div>
-          </div>
-          <div class="card mx-auto col-md-12" style="width: 18rem">
-            <img src="./../photos/food-3.webp" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <a href="#" class="btn btn-primary">See recipe</a>
+              <div
+                class="lower-card-wrapper d-flex justify-content-between align-items-center"
+              >
+                <a href="#" class="btn btn-primary">See recipe</a>
+                <span>{{ post.country }}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -79,12 +66,22 @@
 </template>
 
 <script>
+import axios from 'axios';
 import HeaderView from './../components/HeaderView.vue';
 import FooterView from './../components/FooterView.vue';
 export default {
   components: {
     HeaderView,
     FooterView,
+  },
+  data() {
+    return {
+      posts: [],
+    };
+  },
+  async created() {
+    const response = await axios.get('http://localhost:3000/api/v1/posts');
+    this.posts = response.data.posts;
   },
 };
 </script>

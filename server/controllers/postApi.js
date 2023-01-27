@@ -13,9 +13,7 @@ exports.getAllPosts = async (req, res, next) => {
     res.status(200).json({
       status: 'success',
       results: posts.length,
-      data: {
-        posts,
-      },
+      posts,
     });
   } catch (error) {
     res.status(500).json({
@@ -29,11 +27,10 @@ exports.getAllPosts = async (req, res, next) => {
 exports.createPost = async (req, res, next) => {
   try {
     if (
-      !req.body.title ||
-      !req.body.ingredients ||
-      !req.body.directions ||
-      !req.body.country ||
-      !req.body.description
+      // checks is entered values are null, undefined or empty then gives error
+      Object.values(req.body).includes(null) ||
+      Object.values(req.body).includes(undefined) ||
+      Object.values(req.body).includes('')
     ) {
       return res.status(411).json({
         error: 'One or more required fields are empty',
@@ -85,13 +82,12 @@ exports.getPostById = async (req, res, next) => {
 exports.updatePost = async (req, res, next) => {
   try {
     const post = await Post.updatePost(
-      req.params.author_id,
       req.params.id,
       req.body.title,
-      req.body.Ingredients,
+      req.body.ingredients,
       req.body.directions,
       req.body.country,
-      req.body.description || Object.keys(req.body).length !== 5
+      req.body.description
     );
     if (!post) {
       res.status(404).json({

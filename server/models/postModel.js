@@ -63,9 +63,13 @@ const Post = {
           [title, ingredients, directions, country, description, id],
           (error, results) => {
             if (error) throw error;
-            Post.getPostById(id)
-              .then((post) => resolve(post))
-              .catch((error) => reject(error));
+            pool.query(
+              `SELECT * FROM posts WHERE id = ${id}`,
+              (error, results) => {
+                if (error) throw error;
+                resolve(results[0]);
+              }
+            );
           }
         );
       } catch (err) {
