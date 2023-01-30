@@ -6,7 +6,7 @@
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Username</label>
           <input
-            type="username"
+            type="text"
             class="form-control mb-3"
             id="exampleInputUser1"
             aria-describedby="userlHelp"

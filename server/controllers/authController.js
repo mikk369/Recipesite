@@ -76,7 +76,7 @@ exports.login = async (req, res, next) => {
     // put token into cookie
     res.cookie('jwt', token, {
       expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
-      // secure: true,
+      secure: true,
       httpOnly: true,
     });
     // removes password from output
@@ -94,49 +94,4 @@ exports.login = async (req, res, next) => {
       error: 'error',
     });
   }
-};
-
-exports.protect = async (req, res, next) => {
-  const tokenHeaders = req.headers.authorization;
-  const tokenCookie = req.cookies.jwt;
-
-  if (!tokenHeaders && !tokenCookie) {
-    return res.status(401).json({
-      message: 'Unauthorized: no token provided',
-    });
-  }
-  // check token from headers first
-  if (tokenHeaders) {
-    jwt.verify(tokenHeaders, process.env.SECRET_KEY, (err, decoded) => {
-      if (err) {
-        return res.status(401).json({
-          message: 'Unauthorized: Invalid token',
-        });
-      }
-      req.user = decoded;
-
-      next();
-    });
-  } else {
-    // check token from cookie
-    jwt.verify(tokenCookie, process.env.SECRET_KEY, (err, decoded) => {
-      if (err) {
-        return res.status(401).json({
-          message: 'Unauthorized: Invalid token',
-        });
-      }
-      req.user = decoded;
-      next();
-    });
-  }
-};
-
-exports.logout = async (req, res, next) => {
-  res.cookie('jwt', 'logout', {
-    expires: new Date(Date.now() + 3 * 1000),
-    // secure: true,
-    httpOnly: true,
-  });
-  res.setHeader('Authorization', '');
-  res.status(200).json({ status: 'success', message: 'You are logged out !' });
 };

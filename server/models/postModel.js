@@ -32,12 +32,12 @@ const Post = {
       }
     });
   },
-  createPost: (title, ingredients, directions, country, description) => {
+  createPost: (title, ingredients, directions, country, description, image) => {
     return new Promise((resolve, reject) => {
       try {
         pool.query(
-          'INSERT INTO posts (title,ingredients,directions,country,description) VALUES (?, ?, ?, ?, ?)',
-          [title, ingredients, directions, country, description],
+          'INSERT INTO posts (title,ingredients,directions,country,description,image) VALUES (?, ?, ?, ?, ?, ?)',
+          [title, ingredients, directions, country, description, image],
           (error, results) => {
             if (error) reject(error);
             resolve({
@@ -47,6 +47,7 @@ const Post = {
               directions: directions,
               country: country,
               description: description,
+              image: image,
             });
           }
         );

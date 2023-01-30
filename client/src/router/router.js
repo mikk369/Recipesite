@@ -20,9 +20,12 @@ const routes = [
     path: '/addrecipe',
     name: 'addrecipe',
     component: () => import('./../views/AddRecipe.vue'),
+    meta: {
+      requiredAuth: true,
+    },
   },
   {
-    path: '/recipe',
+    path: '/recipe/:id',
     name: 'recipe',
     component: () => import('./../views/RecipiView.vue'),
   },
@@ -36,6 +39,20 @@ const routes = [
 const router = createRouter({
   routes,
   history: createWebHistory(),
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiredAuth)) {
+    if (!sessionStorage.getItem('super_trooper')) {
+      next({
+        patH: '/',
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;

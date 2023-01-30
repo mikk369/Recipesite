@@ -26,6 +26,11 @@ exports.getAllPosts = async (req, res, next) => {
 // create a new post
 exports.createPost = async (req, res, next) => {
   try {
+    if (!req.file) {
+      return res.status(400).json({
+        error: 'Image file is required',
+      });
+    }
     if (
       // checks is entered values are null, undefined or empty then gives error
       Object.values(req.body).includes(null) ||
@@ -36,18 +41,21 @@ exports.createPost = async (req, res, next) => {
         error: 'One or more required fields are empty',
       });
     }
+    // takes only filename
+    // const imagename = req.file.filename;
+
     const newPost = await Post.createPost(
       req.body.title,
       req.body.ingredients,
       req.body.directions,
       req.body.country,
-      req.body.description
+      req.body.description,
+      req.file.path
+      // imagename
     );
     res.status(201).json({
       status: 'Post Created',
-      data: {
-        newPost,
-      },
+      newPost,
     });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
@@ -61,9 +69,7 @@ exports.getPostById = async (req, res, next) => {
     if (post) {
       res.status(200).json({
         status: 'success',
-        data: {
-          post,
-        },
+        post,
       });
     } else {
       res.status(404).json({

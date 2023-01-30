@@ -71,7 +71,10 @@ export default {
           password: this.password,
         }
       );
-      console.log(response.data);
+      this.$store.dispatch('getMessage', { message: response.data.message });
+      sessionStorage.setItem('super_trooper', response.data.token);
+      this.$store.commit('authorized');
+      this.$router.push('/');
     },
   },
 };

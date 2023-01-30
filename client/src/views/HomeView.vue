@@ -44,16 +44,27 @@
             v-for="post in posts"
             :key="post.id"
           >
-            <img src="./../photos/food-1.webp" class="card-img-top" alt="..." />
-            <div class="card-body">
+            <img
+              crossorigin="true"
+              :src="`http://localhost:3000/${post.image}`"
+              class="card-img-top"
+              alt="the-food-picture"
+            />
+
+            <div class="card-body pb-0">
               <h5 class="card-title">{{ post.title }}</h5>
-              <p class="card-text">
-                {{ post.description }}
-              </p>
+              <div class="card-text-wrapper pb-3">
+                <p class="card-text">
+                  {{ post.description }}
+                </p>
+              </div>
               <div
                 class="lower-card-wrapper d-flex justify-content-between align-items-center"
               >
-                <a href="#" class="btn btn-primary">See recipe</a>
+                <router-link :to="{ params: { id: post.id }, name: 'recipe' }">
+                  <a class="btn btn-primary">See recipe</a>
+                </router-link>
+
                 <span>{{ post.country }}</span>
               </div>
             </div>
@@ -141,5 +152,15 @@ export default {
 }
 .card {
   box-shadow: 0 3px 10px 2px rgba(0, 0, 0, 0.3);
+  height: 450px;
+}
+.card-text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+.card-text-wrapper {
+  height: 150px;
 }
 </style>

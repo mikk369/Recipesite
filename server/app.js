@@ -6,12 +6,14 @@ const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const postRoutes = require('./routes/postRoutes');
 const userRoutes = require('./routes/userRoutes');
+const path = require('path');
 
 app.use(cors());
 app.use(helmet());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 // routes
 app.use('/api/v1/posts', postRoutes);
