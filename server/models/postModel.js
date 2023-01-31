@@ -41,7 +41,7 @@ const Post = {
           (error, results) => {
             if (error) reject(error);
             resolve({
-              id: results.insertId,
+              // id: results.insertId,
               title: title,
               ingredients: ingredients,
               directions: directions,

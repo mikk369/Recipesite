@@ -46,7 +46,7 @@
           >
             <img
               crossorigin="true"
-              :src="`http://localhost:3000/${post.image}`"
+              :src="`${post.image}`"
               class="card-img-top"
               alt="the-food-picture"
             />
@@ -91,7 +91,12 @@ export default {
     };
   },
   async created() {
-    const response = await axios.get('http://localhost:3000/api/v1/posts');
+    const response = await axios.get(
+      'https://recipenode.themikk.ee/api/v1/posts/',
+      {
+        withCredentials: true,
+      }
+    );
     this.posts = response.data.posts;
   },
 };

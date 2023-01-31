@@ -65,7 +65,7 @@ export default {
   methods: {
     async submitLogin() {
       const response = await axios.post(
-        'http://localhost:3000/api/v1/users/login',
+        'https://recipenode.themikk.ee/api/v1/users/login',
         {
           email: this.email,
           password: this.password,

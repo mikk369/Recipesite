@@ -12,7 +12,7 @@
             <img
               crossorigin="true"
               class="rounded"
-              :src="`http://localhost:3000/${image}`"
+              :src="`${image}`"
               alt="food-picture"
             />
           </div>
@@ -72,7 +72,7 @@ export default {
   async mounted() {
     try {
       const response = await axios.get(
-        'http://localhost:3000/api/v1/posts/' + this.$route.params.id
+        'https://recipenode.themikk.ee/api/v1/posts/' + this.$route.params.id
       );
       this.id = response.data.post.id;
       this.title = response.data.post.title;

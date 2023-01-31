@@ -73,7 +73,7 @@ export default {
   methods: {
     async signUp() {
       const response = await axios.post(
-        'http://localhost:3000/api/v1/users/signup',
+        'https://recipenode.themikk.ee/api/v1/users/signup',
         {
           username: this.username,
           email: this.email,

@@ -2,11 +2,11 @@ const mysql = require('mysql2');
 
 // / Create a connection to the database
 const pool = mysql.createPool({
-  host: 'localhost',
-  database: 'recipe',
-  user: 'root',
-  password: '',
-  port: '3307',
+  host: 'd116559.mysql.zonevs.eu',
+  database: 'd116559sd490885',
+  user: 'd116559sa443641',
+  password: 'pikksalas6na',
+  // port: '3307',
 });
 
 // Connect to DB

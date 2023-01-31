@@ -112,7 +112,7 @@ export default {
       formData.append('ingredients', this.ingredients);
       formData.append('directions', this.directions);
 
-      await axios.post('https://recipeNode.themikk.ee/api/v1/posts', formData);
+      await axios.post('https://recipenode.themikk.ee/api/v1/posts', formData);
       // reset the form fields
       (this.title = ''),
         (this.country = ''),

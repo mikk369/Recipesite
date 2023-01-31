@@ -1,4 +1,5 @@
 const Post = require('../models/postModel.js');
+const cloudinary = require('./cloudinary');
 
 // get all posts
 exports.getAllPosts = async (req, res, next) => {
@@ -26,6 +27,9 @@ exports.getAllPosts = async (req, res, next) => {
 // create a new post
 exports.createPost = async (req, res, next) => {
   try {
+    const result = await cloudinary.uploader.upload(req.file.path);
+    req.imageUrl = result.secure_url;
+    // req.imageId = result.public_id;
     if (!req.file) {
       return res.status(400).json({
         error: 'Image file is required',
@@ -50,8 +54,8 @@ exports.createPost = async (req, res, next) => {
       req.body.directions,
       req.body.country,
       req.body.description,
-      req.file.path
-      // imagename
+      req.imageUrl
+      // req.imageId
     );
     res.status(201).json({
       status: 'Post Created',

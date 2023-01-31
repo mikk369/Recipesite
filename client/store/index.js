@@ -26,7 +26,6 @@ export default createStore({
     },
     logout(state) {
       sessionStorage.removeItem('super_trooper');
-      sessionStorage.removeItem('user');
       state.token = null;
     },
   },
