@@ -5,7 +5,7 @@
     <section class="bg-dark text-light">
       <div class="wrapper-container d-flex flex-row flex-wrap">
         <div class="image-div col-lg-6 col-sm-6">
-          <p class="fst-italic lead">
+          <p class="fst-italic lead mb-5">
             “Tell me what you eat, and I will tell you who you are.”
           </p>
           <img
@@ -153,6 +153,11 @@ export default {
     padding: 0;
     text-align: center;
     padding-top: 30px;
+  }
+}
+@media (max-width: 425px) {
+  .paragraph-div {
+    text-align: center;
   }
 }
 .card-img-top {
