@@ -104,26 +104,40 @@ export default {
   },
   methods: {
     async addPost() {
-      const formData = new FormData();
-      formData.append('image', this.image);
-      formData.append('title', this.title);
-      formData.append('country', this.country);
-      formData.append('description', this.description);
-      formData.append('ingredients', this.ingredients);
-      formData.append('directions', this.directions);
+      try {
+        const formData = new FormData();
+        formData.append('image', this.image);
+        formData.append('title', this.title);
+        formData.append('country', this.country);
+        formData.append('description', this.description);
+        formData.append('ingredients', this.ingredients);
+        formData.append('directions', this.directions);
 
-      await axios.post('https://recipenode.themikk.ee/api/v1/posts', formData);
-      // reset the form fields
-      (this.title = ''),
-        (this.country = ''),
-        (this.description = ''),
-        (this.ingredients = ''),
-        (this.directions = ''),
-        (this.image = '');
+        await axios.post(
+          'https://recipenode.themikk.ee/api/v1/posts',
+          formData,
+          {
+            withCredentials: true,
+          }
+        );
+        // reset the form fields
+        (this.title = ''),
+          (this.country = ''),
+          (this.description = ''),
+          (this.ingredients = ''),
+          (this.directions = ''),
+          (this.image = '');
+      } catch (err) {
+        console.log(err);
+      }
     },
 
     selectFile(image) {
-      this.image = image.target.files[0];
+      try {
+        this.image = image.target.files[0];
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };

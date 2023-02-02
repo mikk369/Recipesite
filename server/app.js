@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const postRoutes = require('./routes/postRoutes');
 const userRoutes = require('./routes/userRoutes');
-const path = require('path');
 
 // app.use(cors());
 app.use(helmet());
@@ -15,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const corsOptions = {
-  origin: 'https://recipe.themikk.ee/',
+  origin: 'https://recipe.themikk.ee',
   credentials: true,
 };
 app.use(cors(corsOptions));

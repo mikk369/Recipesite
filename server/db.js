@@ -1,6 +1,5 @@
 const mysql = require('mysql2');
 
-// / Create a connection to the database
 const pool = mysql.createPool({
   host: 'd116559.mysql.zonevs.eu',
   database: 'd116559sd490885',

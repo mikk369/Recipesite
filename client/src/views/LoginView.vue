@@ -64,17 +64,24 @@ export default {
   },
   methods: {
     async submitLogin() {
-      const response = await axios.post(
-        'https://recipenode.themikk.ee/api/v1/users/login',
-        {
-          email: this.email,
-          password: this.password,
-        }
-      );
-      this.$store.dispatch('getMessage', { message: response.data.message });
-      sessionStorage.setItem('super_trooper', response.data.token);
-      this.$store.commit('authorized');
-      this.$router.push('/');
+      try {
+        const response = await axios.post(
+          'https://recipenode.themikk.ee/api/v1/users/login',
+          {
+            email: this.email,
+            password: this.password,
+          },
+          {
+            withCredentials: true,
+          }
+        );
+        this.$store.dispatch('getMessage', { message: response.data.message });
+        sessionStorage.setItem('super_trooper', response.data.token);
+        this.$store.commit('authorized');
+        this.$router.push('/');
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };

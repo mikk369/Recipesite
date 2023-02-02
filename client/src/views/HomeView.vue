@@ -91,13 +91,17 @@ export default {
     };
   },
   async created() {
-    const response = await axios.get(
-      'https://recipenode.themikk.ee/api/v1/posts/',
-      {
-        withCredentials: true,
-      }
-    );
-    this.posts = response.data.posts;
+    try {
+      const response = await axios.get(
+        'https://recipenode.themikk.ee/api/v1/posts/',
+        {
+          withCredentials: true,
+        }
+      );
+      this.posts = response.data.posts;
+    } catch (err) {
+      console.log(err);
+    }
   },
 };
 </script>

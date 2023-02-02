@@ -9,9 +9,9 @@ const Post = {
           if (error) throw error;
           resolve(results);
         });
-      } catch (err) {
-        console.log(err);
-        reject(err);
+      } catch (error) {
+        console.log(error);
+        reject(error);
       }
     });
   },
@@ -26,9 +26,9 @@ const Post = {
             resolve(results[0]);
           }
         );
-      } catch (err) {
-        console.log(err);
-        reject(err);
+      } catch (error) {
+        console.log(error);
+        reject(error);
       }
     });
   },
@@ -41,7 +41,7 @@ const Post = {
           (error, results) => {
             if (error) reject(error);
             resolve({
-              // id: results.insertId,
+              id: results.insertId,
               title: title,
               ingredients: ingredients,
               directions: directions,
@@ -51,8 +51,9 @@ const Post = {
             });
           }
         );
-      } catch (err) {
-        reject(err);
+      } catch (error) {
+        res.status(500).json({ error: `Internal server error: ${error}` });
+        reject(error);
       }
     });
   },
@@ -73,8 +74,8 @@ const Post = {
             );
           }
         );
-      } catch (err) {
-        reject(err);
+      } catch (error) {
+        reject(error);
       }
     });
   },
@@ -85,9 +86,9 @@ const Post = {
           if (error) throw error;
           resolve();
         });
-      } catch (err) {
-        console.log(err);
-        reject(err);
+      } catch (error) {
+        console.log(error);
+        reject(error);
       }
     });
   },
