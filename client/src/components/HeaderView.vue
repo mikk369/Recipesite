@@ -3,6 +3,7 @@
     <div class="logo-container px-5">
       <img src="./../photos/LOGO.webp" alt="" />
     </div>
+    <h4 class="text-light login-message" v-if="message">{{ message }}</h4>
     <button
       class="navbar-toggler"
       type="button"
@@ -12,7 +13,6 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="nav-menu">
-      <h4 class="text-light">{{ message }}</h4>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
           <router-link to="/" class="nav-link text-danger">Home</router-link>
@@ -75,5 +75,23 @@ export default {
 .logo-container img {
   width: 125px;
   height: auto;
+}
+.login-message {
+  background-color: rgba(6, 192, 0, 0.2);
+  padding: 20px;
+  border-radius: 9px;
+  animation: loginMessage 6s ease-in-out forwards;
+}
+
+@keyframes loginMessage {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: translateY(-150px);
+  }
 }
 </style>

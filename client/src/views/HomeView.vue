@@ -1,6 +1,5 @@
 <template>
   <div>
-    <header-view />
     <!-- SHOWCASE  -->
     <section class="bg-dark text-light">
       <div class="wrapper-container d-flex flex-row flex-wrap">
@@ -72,19 +71,13 @@
         </div>
       </div>
     </section>
-    <FooterView />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import HeaderView from './../components/HeaderView.vue';
-import FooterView from './../components/FooterView.vue';
 export default {
-  components: {
-    HeaderView,
-    FooterView,
-  },
+  components: {},
   data() {
     return {
       posts: [],
@@ -92,12 +85,9 @@ export default {
   },
   async created() {
     try {
-      const response = await axios.get(
-        'https://recipenode.themikk.ee/api/v1/posts/',
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.get('http://localhost:3000/api/v1/posts/', {
+        // withCredentials: true,
+      });
       this.posts = response.data.posts;
     } catch (err) {
       console.log(err);

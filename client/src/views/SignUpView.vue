@@ -1,6 +1,5 @@
 <template>
   <div class="main-wrapper">
-    <header-view />
     <div class="form-wrapper d-flex align-items-center">
       <form class="col-lg-2 form-class">
         <div class="mb-3">
@@ -50,19 +49,13 @@
         >
       </form>
     </div>
-    <FooterView />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import HeaderView from './../components/HeaderView.vue';
-import FooterView from './../components/FooterView.vue';
+
 export default {
-  components: {
-    HeaderView,
-    FooterView,
-  },
   data() {
     return {
       username: '',
@@ -72,15 +65,16 @@ export default {
   },
   methods: {
     async signUp() {
-      const response = await axios.post(
-        'https://recipenode.themikk.ee/api/v1/users/signup',
-        {
+      try {
+        await axios.post('http://localhost:3000/api/v1/users/signup', {
           username: this.username,
           email: this.email,
           password: this.password,
-        }
-      );
-      (this.username = ''), (this.email = ''), (this.password = '');
+        });
+        (this.username = ''), (this.email = ''), (this.password = '');
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };

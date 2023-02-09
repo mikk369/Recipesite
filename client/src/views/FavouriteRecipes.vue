@@ -1,7 +1,5 @@
 <template>
   <div class="favourite-recipe">
-    <header-view />
-
     <section class="bg-light p-5 main-section">
       <div class="row-col-1">
         <div class="cards d-flex flex-wrap">
@@ -50,18 +48,10 @@
         </div>
       </div>
     </section>
-    <FooterView />
   </div>
 </template>
 <script>
-import HeaderView from './../components/HeaderView.vue';
-import FooterView from './../components/FooterView.vue';
-export default {
-  components: {
-    HeaderView,
-    FooterView,
-  },
-};
+export default {};
 </script>
 
 <style>

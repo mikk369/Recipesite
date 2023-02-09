@@ -1,7 +1,5 @@
 <template>
   <div class="main-wrapper">
-    <header-view />
-
     <div class="add-recipe d-flex justify-content-center align-items-center">
       <form class="col-lg-2">
         <h3 class="pt5">Add a recipe</h3>
@@ -79,19 +77,12 @@
         </div>
       </form>
     </div>
-    <FooterView />
   </div>
 </template>
 
 <script>
-import HeaderView from './../components/HeaderView.vue';
-import FooterView from './../components/FooterView.vue';
 import axios from 'axios';
 export default {
-  components: {
-    HeaderView,
-    FooterView,
-  },
   data() {
     return {
       title: '',
@@ -113,13 +104,9 @@ export default {
         formData.append('ingredients', this.ingredients);
         formData.append('directions', this.directions);
 
-        await axios.post(
-          'https://recipenode.themikk.ee/api/v1/posts',
-          formData,
-          {
-            withCredentials: true,
-          }
-        );
+        await axios.post('http://localhost:3000/api/v1/posts', formData, {
+          // withCredentials: true,
+        });
         // reset the form fields
         (this.title = ''),
           (this.country = ''),
@@ -128,7 +115,7 @@ export default {
           (this.directions = ''),
           (this.image = '');
       } catch (err) {
-        console.log(err);
+        console.log(`èrror ${err}`);
       }
     },
 

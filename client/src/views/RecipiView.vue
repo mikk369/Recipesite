@@ -1,6 +1,5 @@
 <template>
   <div class="recipe-view">
-    <header-view />
     <div class="main-wrapper">
       <section class="d-flex justify-content-around p-5">
         <div class="row justify-content-center">
@@ -44,20 +43,13 @@
         </div>
       </section>
     </div>
-    <FooterView />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import HeaderView from './../components/HeaderView.vue';
-import FooterView from './../components/FooterView.vue';
 export default {
   name: 'recipe',
-  components: {
-    HeaderView,
-    FooterView,
-  },
   data() {
     return {
       id: '',
@@ -72,7 +64,7 @@ export default {
   async mounted() {
     try {
       const response = await axios.get(
-        'https://recipenode.themikk.ee/api/v1/posts/' + this.$route.params.id
+        'http://localhost:3000/api/v1/posts/' + this.$route.params.id
       );
       this.id = response.data.post.id;
       this.title = response.data.post.title;

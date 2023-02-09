@@ -34,6 +34,7 @@ const routes = [
     name: 'favouriterecipes',
     component: () => import('../views/FavouriteRecipes.vue'),
   },
+
 ];
 
 const router = createRouter({

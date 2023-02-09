@@ -24,9 +24,11 @@ export default createStore({
     setMessage(state, message) {
       state.message = message;
     },
+
     logout(state) {
       sessionStorage.removeItem('super_trooper');
       state.token = null;
+      state.message = '';
     },
   },
   actions: {

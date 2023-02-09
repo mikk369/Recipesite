@@ -1,6 +1,8 @@
 <template>
   <div class="main-wrapper">
-    <header-view />
+    <ul class="d-flex justify-content-center errorMsg">
+      <li>{{ errorMsg }}</li>
+    </ul>
     <div class="form-wrapper d-flex align-items-center justify-content-center">
       <form class="col-lg-2">
         <div class="mb-3">
@@ -43,44 +45,46 @@
         >
       </form>
     </div>
-    <FooterView />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import HeaderView from './../components/HeaderView.vue';
-import FooterView from './../components/FooterView.vue';
+
 export default {
-  components: {
-    HeaderView,
-    FooterView,
-  },
   data() {
     return {
       email: '',
       password: '',
+      ifError: false,
+      errorMsg: '',
     };
   },
   methods: {
     async submitLogin() {
       try {
         const response = await axios.post(
-          'https://recipenode.themikk.ee/api/v1/users/login',
+          'http://localhost:3000/api/v1/users/login',
           {
             email: this.email,
             password: this.password,
-          },
-          {
-            withCredentials: true,
           }
+          // {
+          //   withCredentials: true,
+          // }
         );
+
         this.$store.dispatch('getMessage', { message: response.data.message });
         sessionStorage.setItem('super_trooper', response.data.token);
         this.$store.commit('authorized');
         this.$router.push('/');
       } catch (err) {
-        console.log(err);
+        if (err.response.status === 400) {
+          this.errorMsg = err.response.data.error;
+        }
+        if (err.response.status === 401) {
+          this.errorMsg = err.response.data.message;
+        }
       }
     },
   },
@@ -92,5 +96,12 @@ export default {
 }
 .link-options {
   text-decoration: none;
+}
+.errorMsg {
+  position: absolute;
+  color: red;
+  padding-top: 30px;
+  list-style-type: none;
+  right: 44%;
 }
 </style>

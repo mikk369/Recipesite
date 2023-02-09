@@ -49,7 +49,7 @@ const User = {
     return new Promise((resolve, reject) => {
       try {
         pool.query(
-          `SELECT * FROM users WHERE email = '${email}'`,
+          "SELECT * FROM users WHERE email = ?",
           [email],
           (error, results) => {
             if (error) return reject(error);

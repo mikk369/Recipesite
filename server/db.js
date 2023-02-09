@@ -1,11 +1,18 @@
 const mysql = require('mysql2');
 
+// const pool = mysql.createPool({
+//   host: 'd116559.mysql.zonevs.eu',
+//   database: 'd116559sd490885',
+//   user: 'd116559sa443641',
+//   password: 'pikksalas6na',
+//   // port: '3307',
+// });
 const pool = mysql.createPool({
-  host: process.env.HOST,
-  database: process.env.DATABASE,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-  // port: '3307',
+  host: 'localhost',
+  database: 'recipe',
+  user: 'root',
+  password: '',
+  port: '3307',
 });
 
 // Connect to DB
