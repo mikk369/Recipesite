@@ -32,12 +32,28 @@ const Post = {
       }
     });
   },
-  createPost: (title, ingredients, directions, country, description, image) => {
+  createPost: (
+    title,
+    ingredients,
+    directions,
+    country,
+    description,
+    image,
+    author_id
+  ) => {
     return new Promise((resolve, reject) => {
       try {
         pool.query(
-          'INSERT INTO posts (title,ingredients,directions,country,description,image) VALUES (?, ?, ?, ?, ?, ?)',
-          [title, ingredients, directions, country, description, image],
+          'INSERT INTO posts (title,ingredients,directions,country,description,image,author_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          [
+            title,
+            ingredients,
+            directions,
+            country,
+            description,
+            image,
+            author_id,
+          ],
           (error, results) => {
             if (error) reject(error);
             resolve({
@@ -48,15 +64,16 @@ const Post = {
               country: country,
               description: description,
               image: image,
+              author_id: author_id,
             });
           }
         );
       } catch (error) {
-        res.status(500).json({ error: `Internal server error: ${error}` });
         reject(error);
       }
     });
   },
+
   updatePost: (id, title, ingredients, directions, country, description) => {
     return new Promise((resolve, reject) => {
       try {

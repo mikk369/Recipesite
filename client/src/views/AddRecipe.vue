@@ -1,5 +1,8 @@
 <template>
   <div class="main-wrapper">
+    <div class="errorWrapper" v-if="errorMsg">
+      <p class="errorMsg">{{ errorMsg }}</p>
+    </div>
     <div class="add-recipe d-flex justify-content-center align-items-center">
       <form class="col-lg-2">
         <h3 class="pt5">Add a recipe</h3>
@@ -91,11 +94,13 @@ export default {
       ingredients: '',
       directions: '',
       image: '',
+      errorMsg: '',
     };
   },
   methods: {
     async addPost() {
       try {
+        const token = sessionStorage.getItem('super_trooper');
         const formData = new FormData();
         formData.append('image', this.image);
         formData.append('title', this.title);
@@ -106,7 +111,11 @@ export default {
 
         await axios.post('http://localhost:3000/api/v1/posts', formData, {
           // withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`, // send the JWT token in the request headers
+          },
         });
+
         // reset the form fields
         (this.title = ''),
           (this.country = ''),
@@ -114,8 +123,9 @@ export default {
           (this.ingredients = ''),
           (this.directions = ''),
           (this.image = '');
-      } catch (err) {
-        console.log(`èrror ${err}`);
+      } catch (error) {
+        this.errorMsg = error.response.data.error;
+        console.log(`error ${error}`);
       }
     },
 
@@ -132,7 +142,15 @@ export default {
 
 <style scoped>
 .add-recipe {
-  height: 79vh;
+  height: 80vh;
+}
+.errorWrapper {
+  display: flex;
+  justify-content: center;
+  color: red;
+}
+.errorMsg {
+  padding-top: 30px;
 }
 </style>
 >

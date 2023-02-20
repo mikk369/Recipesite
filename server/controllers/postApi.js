@@ -1,12 +1,13 @@
-const Post = require('../models/postModel.js');
+const Post = require('../models/postModel');
 const cloudinary = require('./cloudinary');
+const jwt = require('jsonwebtoken');
 
 // get all posts
 exports.getAllPosts = async (req, res, next) => {
   try {
     const posts = await Post.getAllPosts();
     if (posts.length === 0) {
-      res.status(404).json({
+      return res.status(404).json({
         status: 'fail',
         message: 'No posts found',
       });
@@ -26,37 +27,45 @@ exports.getAllPosts = async (req, res, next) => {
 
 // create a new post
 exports.createPost = async (req, res, next) => {
+  // Check if all fields are filled
+  if (
+    !req.body.title ||
+    !req.body.ingredients ||
+    !req.body.directions ||
+    !req.body.country ||
+    !req.body.description
+  ) {
+    return res.status(411).json({
+      error: 'All fields are required',
+    });
+  }
   try {
     const result = await cloudinary.uploader.upload(req.file.path);
     req.imageUrl = result.secure_url;
-    // req.imageId = result.public_id;
     if (!req.file) {
       return res.status(400).json({
         error: 'Image file is required',
       });
     }
-    if (
-      // checks is entered values are null, undefined or empty then gives error
-      Object.values(req.body).includes(null) ||
-      Object.values(req.body).includes(undefined) ||
-      Object.values(req.body).includes('')
-    ) {
-      return res.status(411).json({
-        error: 'One or more required fields are empty',
-      });
-    }
-    // takes only filename
-    // const imagename = req.file.filename;
 
+    // Extract the token from the Authorization header
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.split(' ')[1];
+
+    // Verify the token
+    const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+    // Extract the user ID from the token
+    const author_id = decodedToken.user_id;
     const newPost = await Post.createPost(
       req.body.title,
       req.body.ingredients,
       req.body.directions,
       req.body.country,
       req.body.description,
-      req.imageUrl
-      // req.imageId
+      req.imageUrl,
+      author_id
     );
+
     res.status(201).json({
       status: 'Post Created',
       newPost,
