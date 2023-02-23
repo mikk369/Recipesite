@@ -56,6 +56,8 @@ exports.createPost = async (req, res, next) => {
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
     // Extract the user ID from the token
     const author_id = decodedToken.user_id;
+    // get username from token
+    const username = decodedToken.username;
     const newPost = await Post.createPost(
       req.body.title,
       req.body.ingredients,
@@ -63,7 +65,8 @@ exports.createPost = async (req, res, next) => {
       req.body.country,
       req.body.description,
       req.imageUrl,
-      author_id
+      author_id,
+      username
     );
 
     res.status(201).json({
@@ -72,6 +75,30 @@ exports.createPost = async (req, res, next) => {
     });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+exports.likedPost = async (req, res, next) => {
+  try {
+    // Create a new post object with the user_id and post_id
+    const newLikedPost = await Post.likedPost(
+      req.body.user_id,
+      req.body.post_id
+    );
+    console.log(newLikedPost);
+
+    res.status(201).json({
+      statu: 'success',
+      message: 'Liked post saved successfully',
+      likedPost: newLikedPost,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to save liked post',
+      error: error.message,
+    });
   }
 };
 
