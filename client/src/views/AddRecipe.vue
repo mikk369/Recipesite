@@ -4,6 +4,9 @@
       <p class="errorMsg">{{ errorMsg }}</p>
     </div>
     <div class="add-recipe d-flex justify-content-center align-items-center">
+      <div v-if="Loading" class="loading-screen">
+        <div class="loading-circle"></div>
+      </div>
       <form class="col-lg-2">
         <h3 class="pt5">Add a recipe</h3>
         <div class="form-group">
@@ -95,10 +98,12 @@ export default {
       directions: '',
       image: '',
       errorMsg: '',
+      Loading: false,
     };
   },
   methods: {
     async addPost() {
+      this.Loading = true; // show the loading screen
       try {
         const token = sessionStorage.getItem('super_trooper');
         const formData = new FormData();
@@ -127,6 +132,7 @@ export default {
         this.errorMsg = error.response.data.error;
         console.log(`error ${error}`);
       }
+      this.Loading = false; // hide the loading screen
     },
 
     selectFile(image) {
@@ -151,6 +157,34 @@ export default {
 }
 .errorMsg {
   padding-top: 30px;
+}
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-circle {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  border: 6px solid #dc3545;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>
 >
