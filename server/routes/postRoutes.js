@@ -3,7 +3,10 @@ const router = express.Router();
 const postApi = require('./../controllers/postApi');
 const upload = require('../controllers/multer');
 
-router.route('/').get(postApi.getAllPosts).post(upload, postApi.createPost);
+router
+  .route('/')
+  .get(postApi.getAllPosts)
+  .post(upload, postApi.createPost, postApi.likedPost);
 
 router
   .route('/:id')

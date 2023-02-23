@@ -15,6 +15,24 @@ const Post = {
       }
     });
   },
+  // add liked post to database
+  likedPost: (user_id, post_id) => {
+    return new Promise((resolve, reject) => {
+      try {
+        pool.query(
+          'INSERT INTO liked_posts (user_id, post_id) VALUES (?, ?)',
+          [user_id, post_id],
+          (error, results) => {
+            if (error) throw error;
+            resolve(results);
+          }
+        );
+      } catch (error) {
+        console.log(error);
+        reject(error);
+      }
+    });
+  },
   getPostById: (id) => {
     return new Promise((resolve, reject) => {
       try {
@@ -39,12 +57,13 @@ const Post = {
     country,
     description,
     image,
-    author_id
+    author_id,
+    username
   ) => {
     return new Promise((resolve, reject) => {
       try {
         pool.query(
-          'INSERT INTO posts (title,ingredients,directions,country,description,image,author_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          'INSERT INTO posts (title,ingredients,directions,country,description,image,author_id,username) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
           [
             title,
             ingredients,
@@ -53,6 +72,7 @@ const Post = {
             description,
             image,
             author_id,
+            username,
           ],
           (error, results) => {
             if (error) reject(error);
@@ -65,6 +85,7 @@ const Post = {
               description: description,
               image: image,
               author_id: author_id,
+              username: username,
             });
           }
         );

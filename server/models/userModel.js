@@ -49,8 +49,28 @@ const User = {
     return new Promise((resolve, reject) => {
       try {
         pool.query(
-          "SELECT * FROM users WHERE email = ?",
+          'SELECT * FROM users WHERE email = ?',
           [email],
+          (error, results) => {
+            if (error) return reject(error);
+            if (results.length > 0) {
+              resolve(results[0]);
+            } else {
+              resolve(false);
+            }
+          }
+        );
+      } catch (err) {
+        reject(err);
+      }
+    });
+  },
+  getUserById: (id) => {
+    return new Promise((resolve, reject) => {
+      try {
+        pool.query(
+          'SELECT * FROM users WHERE id = ?',
+          [id],
           (error, results) => {
             if (error) return reject(error);
             if (results.length > 0) {
