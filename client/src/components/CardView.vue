@@ -30,6 +30,9 @@
       <div class="author-wrapper">
         <p class="username font-italic">author: {{ post.username }}</p>
         <div class="button-wrapper">
+          <div class="delete-button-wrapper">
+            <button class="delete-button">Delete</button>
+          </div>
           <button
             class="like-button"
             :class="{ clicked: liked }"
@@ -118,6 +121,20 @@ export default {
 }
 .button-wrapper {
   padding: 9px 0 9px 0;
+  display: flex;
+  justify-content: space-between;
+  width: 125px;
+}
+.delete-button-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.delete-button {
+  border: none;
+  background: red;
+  border-radius: 9px;
+  color: #fff;
 }
 .like-button:hover {
   transform: scale(1.1);
