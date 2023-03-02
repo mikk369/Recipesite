@@ -8,7 +8,7 @@
       style="background-color: rgba(0, 0, 0, 0.2)"
     >
       © 2020 Copyright:
-      <a class="text-light" href="https://portfolio.themikk.ee/">FoodRecipe</a>
+      <a class="text-light" href="https://themikk.ee/">FoodRecipe</a>
     </div>
     <!-- Copyright -->
   </footer>
