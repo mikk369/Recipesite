@@ -1,44 +1,42 @@
 <template>
-  <div class="cards d-flex flex-wrap">
-    <div
-      class="card mx-auto col-md-12"
-      style="width: 18rem"
-      v-for="post in posts"
-      :key="post.id"
-    >
-      <img
-        crossorigin="true"
-        :src="`${post.image}`"
-        class="card-img-top"
-        alt="the-food-picture"
-      />
+  <div
+    class="card mx-auto col-md-12"
+    style="width: 18rem"
+    v-for="post in posts"
+    :key="post.id"
+  >
+    <img
+      crossorigin="true"
+      :src="`${post.image}`"
+      class="card-img-top"
+      alt="the-food-picture"
+    />
 
-      <div class="card-body pb-0">
-        <h5 class="card-title">{{ post.title }}</h5>
-        <div class="card-text-wrapper pb-3">
-          <p class="card-text">
-            {{ post.description }}
-          </p>
-        </div>
-        <div
-          class="lower-card-wrapper d-flex justify-content-between align-items-center"
-        >
-          <router-link :to="{ params: { id: post.id }, name: 'recipe' }">
-            <a class="btn btn-primary">See recipe</a>
-          </router-link>
-          <span>{{ post.country }}</span>
-        </div>
-        <div class="author-wrapper">
-          <p class="username font-italic">author: {{ post.username }}</p>
-          <div class="button-wrapper">
-            <button
-              class="like-button"
-              :class="{ clicked: liked }"
-              @click="toggleLike"
-            >
-              <i class="fas fa-thumbs-up"></i>
-            </button>
-          </div>
+    <div class="card-body pb-0">
+      <h5 class="card-title">{{ post.title }}</h5>
+      <div class="card-text-wrapper pb-3">
+        <p class="card-text">
+          {{ post.description }}
+        </p>
+      </div>
+      <div
+        class="lower-card-wrapper d-flex justify-content-between align-items-center"
+      >
+        <router-link :to="{ params: { id: post.id }, name: 'recipe' }">
+          <a class="btn btn-primary">See recipe</a>
+        </router-link>
+        <span class="country">{{ post.country }}</span>
+      </div>
+      <div class="author-wrapper">
+        <p class="username font-italic">author: {{ post.username }}</p>
+        <div class="button-wrapper">
+          <button
+            class="like-button"
+            :class="{ clicked: liked }"
+            @click="toggleLike"
+          >
+            <i class="fas fa-thumbs-up"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -109,6 +107,9 @@ export default {
 .author-wrapper {
   display: flex;
   justify-content: space-between;
+}
+.country {
+  text-align: center;
 }
 .like-button {
   border: none;
