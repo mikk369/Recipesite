@@ -38,6 +38,9 @@
                   </li>
                 </ul>
               </div>
+              <router-link to="/">
+                <button class="btn btn-success back-button">Back</button>
+              </router-link>
             </div>
           </div>
         </div>
