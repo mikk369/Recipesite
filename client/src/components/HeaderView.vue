@@ -91,7 +91,7 @@ export default {
     transform: translateY(-100px);
   }
   100% {
-    transform: translateY(-150px);
+    transform: translateY(-300px);
   }
 }
 </style>
