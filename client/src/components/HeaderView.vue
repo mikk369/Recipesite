@@ -80,7 +80,7 @@ export default {
   background-color: rgba(6, 192, 0, 0.2);
   padding: 20px;
   border-radius: 9px;
-  animation: loginMessage 6s ease-in-out forwards;
+  animation: loginMessage 3s ease-in-out forwards;
 }
 
 @keyframes loginMessage {
@@ -91,7 +91,7 @@ export default {
     transform: translateY(-100px);
   }
   100% {
-    transform: translateY(-300px);
+    transform: translateY(-350px);
   }
 }
 </style>
