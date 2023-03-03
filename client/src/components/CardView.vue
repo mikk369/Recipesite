@@ -52,19 +52,18 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
   components: {},
   data() {
     return {
       id: '',
       posts: [],
-      liked: false,
     };
   },
   async created() {
     try {
-      const response = await axios.get('http://localhost:3000/api/v1/posts/', {
+      const response = await axios.get("http://localhost:3000/api/v1/posts/", {
         // withCredentials: true,
       });
       this.posts = response.data.posts;
@@ -74,9 +73,9 @@ export default {
     }
   },
   methods: {
-    toggleLike() {
+    toggleLike(post) {
       // Your code to toggle the like goes here
-      this.liked = !this.liked;
+      post.liked = !post.liked;
     },
     deletePost(id) {
       axios.delete('http://localhost:3000/api/v1/posts/' + id);
