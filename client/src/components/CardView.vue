@@ -31,7 +31,13 @@
         <p class="username font-italic">author: {{ post.username }}</p>
         <div class="button-wrapper">
           <div class="delete-button-wrapper">
-            <button class="delete-button">Delete</button>
+            <button
+              v-if="isLogged"
+              class="delete-button"
+              @click="deletePost(id)"
+            >
+              Delete
+            </button>
           </div>
           <button
             class="like-button"
@@ -51,6 +57,7 @@ export default {
   components: {},
   data() {
     return {
+      id: '',
       posts: [],
       liked: false,
     };
@@ -61,6 +68,7 @@ export default {
         // withCredentials: true,
       });
       this.posts = response.data.posts;
+      this.id = response.data.posts.id;
     } catch (err) {
       console.log(err);
     }
@@ -69,6 +77,15 @@ export default {
     toggleLike() {
       // Your code to toggle the like goes here
       this.liked = !this.liked;
+    },
+    deletePost(id) {
+      axios.delete('http://localhost:3000/api/v1/posts/' + id);
+      this.$router.push('/');
+    },
+  },
+  computed: {
+    isLogged() {
+      return this.$store.getters.isLoggedIn;
     },
   },
 };
