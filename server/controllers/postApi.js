@@ -133,7 +133,8 @@ exports.updatePost = async (req, res, next) => {
       req.body.ingredients,
       req.body.directions,
       req.body.country,
-      req.body.description
+      req.body.description,
+      req.body.image
     );
     if (!post) {
       res.status(404).json({

@@ -95,12 +95,20 @@ const Post = {
     });
   },
 
-  updatePost: (id, title, ingredients, directions, country, description) => {
+  updatePost: (
+    id,
+    title,
+    ingredients,
+    directions,
+    country,
+    description,
+    image
+  ) => {
     return new Promise((resolve, reject) => {
       try {
         pool.query(
-          'UPDATE posts SET title = ?, ingredients = ?, directions = ?, country = ?, description = ? WHERE id = ?',
-          [title, ingredients, directions, country, description, id],
+          'UPDATE posts SET title = ?, ingredients = ?, directions = ?, country = ?, description = ?, image = ? WHERE id = ?',
+          [title, ingredients, directions, country, description, image, id],
           (error, results) => {
             if (error) throw error;
             pool.query(
