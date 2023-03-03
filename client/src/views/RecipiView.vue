@@ -38,9 +38,14 @@
                   </li>
                 </ul>
               </div>
-              <router-link to="/">
-                <button class="btn btn-success back-button">Back</button>
-              </router-link>
+              <div class="buttons-wrapper">
+                <router-link to="/">
+                  <button class="btn btn-primary back-button">Back</button>
+                </router-link>
+                <router-link v-if="isLogged" :to="updateRecipeUrl">
+                  <button class="btn btn-success back-button">Change</button>
+                </router-link>
+              </div>
             </div>
           </div>
         </div>
@@ -80,6 +85,14 @@ export default {
       console.log(err);
     }
   },
+  computed: {
+    updateRecipeUrl() {
+      return { name: 'updaterecipe', param: { id: this.id } };
+    },
+    isLogged() {
+      return this.$store.getters.isLoggedIn;
+    },
+  },
 };
 </script>
 
@@ -103,5 +116,11 @@ export default {
 }
 .ingredients {
   list-style: none;
+}
+.buttons-wrapper {
+  width: 150px;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
 }
 </style>
