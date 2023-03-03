@@ -34,7 +34,11 @@ const routes = [
     name: 'favouriterecipes',
     component: () => import('../views/FavouriteRecipes.vue'),
   },
-
+  {
+    path: '/updaterecipe/:id',
+    name: 'updaterecipe',
+    component: () => import('../views/updaterecipe.vue'),
+  },
 ];
 
 const router = createRouter({
