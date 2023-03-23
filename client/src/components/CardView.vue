@@ -3,14 +3,12 @@
     class="card mx-auto col-md-12"
     style="width: 18rem"
     v-for="post in posts"
-    :key="post.id"
-  >
+    :key="post.id">
     <img
       crossorigin="true"
       :src="`${post.image}`"
       class="card-img-top"
-      alt="the-food-picture"
-    />
+      alt="the-food-picture" />
 
     <div class="card-body pb-0">
       <h5 class="card-title">{{ post.title }}</h5>
@@ -20,8 +18,7 @@
         </p>
       </div>
       <div
-        class="lower-card-wrapper d-flex justify-content-between align-items-center"
-      >
+        class="lower-card-wrapper d-flex justify-content-between align-items-center">
         <router-link :to="{ params: { id: post.id }, name: 'recipe' }">
           <a class="btn btn-primary">See recipe</a>
         </router-link>
@@ -29,30 +26,18 @@
       </div>
       <div class="author-wrapper">
         <p class="username font-italic">author: {{ post.username }}</p>
-        <div class="button-wrapper">
-          <div class="delete-button-wrapper">
-            <button
-              v-if="isLogged"
-              class="delete-button"
-              @click="deletePost(id)"
-            >
-              Delete
-            </button>
-          </div>
-          <button
-            class="like-button"
-            :class="{ clicked: liked }"
-            @click="toggleLike"
-          >
-            <i class="fas fa-thumbs-up"></i>
-          </button>
-        </div>
+        <button
+          class="like-button"
+          :class="{ clicked: liked }"
+          @click="toggleLike">
+          <i class="fas fa-thumbs-up"></i>
+        </button>
       </div>
     </div>
   </div>
 </template>
 <script>
-import axios from "axios";
+import axios from 'axios';
 export default {
   components: {},
   data() {
@@ -63,7 +48,7 @@ export default {
   },
   async created() {
     try {
-      const response = await axios.get("http://localhost:3000/api/v1/posts/", {
+      const response = await axios.get('http://localhost:3000/api/v1/posts/', {
         // withCredentials: true,
       });
       this.posts = response.data.posts;
@@ -76,10 +61,6 @@ export default {
     toggleLike(post) {
       // Your code to toggle the like goes here
       post.liked = !post.liked;
-    },
-    deletePost(id) {
-      axios.delete('http://localhost:3000/api/v1/posts/' + id);
-      this.$router.push('/');
     },
   },
   computed: {
@@ -126,6 +107,7 @@ export default {
 .author-wrapper {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 6px;
 }
 .country {
   text-align: center;
@@ -135,23 +117,7 @@ export default {
   border-radius: 9px;
   padding: 10px 20px 10px 20px;
 }
-.button-wrapper {
-  padding: 9px 0 9px 0;
-  display: flex;
-  justify-content: space-between;
-  width: 125px;
-}
-.delete-button-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-.delete-button {
-  border: none;
-  background: red;
-  border-radius: 9px;
-  color: #fff;
-}
+
 .like-button:hover {
   transform: scale(1.1);
 }
