@@ -12,8 +12,7 @@
               crossorigin="true"
               class="rounded"
               :src="`${image}`"
-              alt="food-picture"
-            />
+              alt="food-picture" />
           </div>
           <div class="recipe-main-container col-md-3">
             <div class="recipe-container">
@@ -38,14 +37,20 @@
                   </li>
                 </ul>
               </div>
-              <div class="buttons-wrapper">
-                <router-link to="/">
-                  <button class="btn btn-primary back-button">Back</button>
-                </router-link>
-                <router-link v-if="isLogged" :to="updateRecipeUrl">
-                  <button class="btn btn-success back-button">Change</button>
-                </router-link>
-              </div>
+            </div>
+            <div class="buttons-wrapper">
+              <router-link v-if="isLogged" :to="updateRecipeUrl">
+                <button class="btn btn-success back-button">Change</button>
+              </router-link>
+              <router-link to="/">
+                <button class="btn btn-primary back-button">Back</button>
+              </router-link>
+              <button
+                v-if="isLogged"
+                class="btn btn-danger"
+                @click="deletePost(id)">
+                Delete
+              </button>
             </div>
           </div>
         </div>
@@ -85,6 +90,12 @@ export default {
       console.log(err);
     }
   },
+  methods: {
+    deletePost(id) {
+      axios.delete('http://localhost:3000/api/v1/posts/' + id);
+      this.$router.push('/');
+    },
+  },
   computed: {
     updateRecipeUrl() {
       return { name: 'updaterecipe', param: { id: this.id } };
@@ -103,13 +114,13 @@ export default {
 .container-image img {
   max-width: 80%;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 48rem) {
   .recipe-class {
     margin-top: 30px;
     margin-bottom: 20px;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 48rem) {
   .direction-class {
     margin-top: 30px;
   }
@@ -118,9 +129,15 @@ export default {
   list-style: none;
 }
 .buttons-wrapper {
-  width: 150px;
-  height: auto;
+  width: 350px;
+  /* height: auto; */
   display: flex;
   justify-content: space-between;
+}
+buttons-wrapper:nth-child(1) {
+  margin-right: 6px;
+}
+buttons-wrapper:nth-child(2) {
+  margin-right: 6px;
 }
 </style>
