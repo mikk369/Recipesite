@@ -16,8 +16,7 @@
             class="form-control"
             id="exampleFormControlInput1"
             placeholder="Title"
-            v-model="title"
-          />
+            v-model="title" />
         </div>
         <div class="form-group pt-3">
           <label for="exampleFormControlInput1">Where recipe originates</label>
@@ -26,8 +25,7 @@
             class="form-control"
             id="exampleFormControlInput1"
             placeholder="Add country"
-            v-model="country"
-          />
+            v-model="country" />
         </div>
         <div class="form-group pt-3">
           <label for="exampleFormControlInput1">Dish description</label>
@@ -36,8 +34,7 @@
             class="form-control"
             id="exampleFormControlInput1"
             placeholder="description"
-            v-model="description"
-          />
+            v-model="description" />
         </div>
         <div class="form-group pt-3">
           <label for="exampleFormControlTextarea1">Ingredients</label>
@@ -45,8 +42,7 @@
             class="form-control"
             id="exampleFormControlTextarea1"
             rows="3"
-            v-model="ingredients"
-          ></textarea>
+            v-model="ingredients"></textarea>
         </div>
         <div class="form-group pt-3">
           <label for="exampleFormControlTextarea1">Directions</label>
@@ -54,8 +50,7 @@
             class="form-control"
             id="exampleFormControlTextarea1"
             rows="3"
-            v-model="directions"
-          ></textarea>
+            v-model="directions"></textarea>
         </div>
         <form enctype="multipart/form-data">
           <input
@@ -65,19 +60,17 @@
             name="image"
             show-size
             accept="image/png, image/jpg, image/webp"
-            @change="selectFile"
-          />
+            @change="selectFile" />
         </form>
 
         <div class="button-wrapper mt-3">
           <button
             @click.prevent="updatePost()"
             type="submit"
-            class="btn btn-success mx-3"
-          >
+            class="btn btn-success mx-3">
             Change
           </button>
-          <router-link :to="{ name: 'Home' }">
+          <router-link :to="{ name: 'recipe' }">
             <button class="btn btn-danger">cancel</button>
           </router-link>
         </div>
@@ -89,6 +82,7 @@
 <script>
 import axios from 'axios';
 export default {
+  name: 'updaterecipe',
   data() {
     return {
       title: '',
@@ -97,6 +91,7 @@ export default {
       ingredients: '',
       directions: '',
       image: '',
+      updatedImage: null,
       errorMsg: '',
       Loading: false,
     };
@@ -111,40 +106,42 @@ export default {
       (this.ingredients = response.data.post.ingredients),
       (this.directions = response.data.post.directions),
       (this.image = response.data.post.image);
-    console.log(response.data.post.title);
   },
   methods: {
     async updatePost() {
       this.Loading = true; // show the loading screen
       try {
         const token = sessionStorage.getItem('super_trooper');
+        const postData = {
+          title: this.title,
+          country: this.country,
+          description: this.description,
+          ingredients: this.ingredients,
+          directions: this.directions,
+          image: this.updatedImage
+            ? URL.createObjectURL(this.updatedImage)
+            : this.image,
+        };
+
         await axios.patch(
           'http://localhost:3000/api/v1/posts/' + this.$route.params.id,
-
-          (this.title = response.data.post.title),
-          (this.country = response.data.post.country),
-          (this.description = response.data.post.description),
-          (this.ingredients = response.data.post.ingredients),
-          (this.directions = response.data.post.directions),
-          (this.image = response.data.post.image),
+          postData,
           {
-            // withCredentials: true,
             headers: {
               Authorization: `Bearer ${token}`, // send the JWT token in the request headers
             },
           }
         );
-        console.log(formData);
       } catch (error) {
-        this.errorMsg = error.response.data.error;
+        // this.errorMsg = error.response.error;
         console.log(`error ${error}`);
       }
       this.Loading = false; // hide the loading screen
       this.$router.push({ name: 'Home' });
     },
-    selectFile(image) {
+    selectFile(event) {
       try {
-        this.image = image.target.files[0];
+        this.updatedImage = event.target.files[0];
       } catch (err) {
         console.log(err);
       }
