@@ -37,7 +37,7 @@ const routes = [
   {
     path: '/updaterecipe/:id',
     name: 'updaterecipe',
-    component: () => import('../views/updaterecipe.vue'),
+    component: () => import('../views/UpdateRecipe.vue'),
   },
 ];
 
