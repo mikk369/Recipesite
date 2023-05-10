@@ -16,8 +16,7 @@
             class="form-control"
             id="exampleFormControlInput1"
             placeholder="Title"
-            v-model="title"
-          />
+            v-model="title" />
         </div>
         <div class="form-group pt-3">
           <label for="exampleFormControlInput1">Where recipe originates</label>
@@ -26,8 +25,7 @@
             class="form-control"
             id="exampleFormControlInput1"
             placeholder="Add country"
-            v-model="country"
-          />
+            v-model="country" />
         </div>
         <div class="form-group pt-3">
           <label for="exampleFormControlInput1">Dish description</label>
@@ -36,8 +34,7 @@
             class="form-control"
             id="exampleFormControlInput1"
             placeholder="description"
-            v-model="description"
-          />
+            v-model="description" />
         </div>
         <div class="form-group pt-3">
           <label for="exampleFormControlTextarea1">Ingredients</label>
@@ -45,8 +42,7 @@
             class="form-control"
             id="exampleFormControlTextarea1"
             rows="3"
-            v-model="ingredients"
-          ></textarea>
+            v-model="ingredients"></textarea>
         </div>
         <div class="form-group pt-3">
           <label for="exampleFormControlTextarea1">Directions</label>
@@ -54,8 +50,7 @@
             class="form-control"
             id="exampleFormControlTextarea1"
             rows="3"
-            v-model="directions"
-          ></textarea>
+            v-model="directions"></textarea>
         </div>
         <form enctype="multipart/form-data">
           <input
@@ -65,16 +60,11 @@
             name="image"
             show-size
             accept="image/png, image/jpg, image/webp"
-            @change="selectFile"
-          />
+            @change="selectFile" />
         </form>
 
         <div class="button-wrapper mt-3">
-          <button
-            @click.prevent="addPost()"
-            type="submit"
-            class="btn btn-success mx-3"
-          >
+          <button @click.prevent="addPost()" type="submit" class="btn btn-success mx-3">
             Add recipe
           </button>
           <router-link :to="{ name: 'Home' }">
@@ -120,7 +110,6 @@ export default {
             Authorization: `Bearer ${token}`, // send the JWT token in the request headers
           },
         });
-
         // reset the form fields
         (this.title = ''),
           (this.country = ''),
@@ -129,7 +118,7 @@ export default {
           (this.directions = ''),
           (this.image = '');
       } catch (error) {
-        this.errorMsg = error.response.data.error;
+        // this.errorMsg = error.response.data.error;
         console.log(`error ${error}`);
       }
       this.Loading = false; // hide the loading screen

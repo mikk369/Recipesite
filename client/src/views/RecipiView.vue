@@ -8,11 +8,7 @@
               <h1>{{ title }}</h1>
               <p>{{ description }}</p>
             </div>
-            <img
-              crossorigin="true"
-              class="rounded"
-              :src="`${image}`"
-              alt="food-picture" />
+            <img crossorigin="true" class="rounded" :src="`${image}`" alt="food-picture" />
           </div>
           <div class="recipe-main-container col-md-3">
             <div class="recipe-container">
@@ -45,12 +41,7 @@
               <router-link to="/">
                 <button class="btn btn-primary back-button">Back</button>
               </router-link>
-              <button
-                v-if="isLogged"
-                class="btn btn-danger"
-                @click="deletePost(id)">
-                Delete
-              </button>
+              <button v-if="isLogged" class="btn btn-danger" @click="deletePost(id)">Delete</button>
             </div>
           </div>
         </div>

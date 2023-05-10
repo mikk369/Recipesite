@@ -10,24 +10,18 @@
           <img
             src="./../photos/langing-pic.webp"
             alt="landing-picture"
-            class="img-fluid align-self-center"
-          />
+            class="img-fluid align-self-center" />
         </div>
         <div class="main-text-container col-lg-6 col-sm-6">
-          <h1 class="title-div">
-            Easy <span class="text-danger">Recipes</span>
-          </h1>
+          <h1 class="title-div">Easy <span class="text-danger">Recipes</span></h1>
           <div class="paragraph-div lead">
-            A recipe is a set of instructions that describes how to prepare or
-            make something, especially a dish of prepared food. A sub-recipe or
-            subrecipe is a recipe for an ingredient that will be called for in
-            the instructions for the main recipe.
+            A recipe is a set of instructions that describes how to prepare or make something,
+            especially a dish of prepared food. A sub-recipe or subrecipe is a recipe for an
+            ingredient that will be called for in the instructions for the main recipe.
           </div>
           <div class="button-wrapper d-flex">
             <router-link :to="{ name: 'signup' }">
-              <button class="btn btn-danger signup-button">
-                SignUp for Easy Recipes
-              </button>
+              <button class="btn btn-danger signup-button">SignUp for Easy Recipes</button>
             </router-link>
           </div>
         </div>

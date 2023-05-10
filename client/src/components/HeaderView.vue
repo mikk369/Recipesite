@@ -8,8 +8,7 @@
       class="navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
-      data-bs-target="#nav-menu"
-    >
+      data-bs-target="#nav-menu">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="nav-menu">
@@ -18,25 +17,19 @@
           <router-link to="/" class="nav-link text-danger">Home</router-link>
         </li>
         <li class="nav-item" v-if="isLogged">
-          <router-link to="/addrecipe" class="nav-link text-danger"
-            >Add Recipe</router-link
-          >
+          <router-link to="/addrecipe" class="nav-link text-danger">Add Recipe</router-link>
         </li>
 
-        <li class="nav-item" v-if="isLogged">
+        <!-- <li class="nav-item" v-if="isLogged">
           <router-link to="/favouriterecipes" class="nav-link text-danger"
             >Favourite Recipes</router-link
           >
-        </li>
+        </li> -->
         <li class="nav-item" v-if="!isLogged">
-          <router-link to="/login" class="nav-link text-danger"
-            >Login</router-link
-          >
+          <router-link to="/login" class="nav-link text-danger">Login</router-link>
         </li>
         <li class="nav-item" v-if="isLogged">
-          <router-link to="#" class="nav-link text-danger" @click="loggedOut()"
-            >Logout</router-link
-          >
+          <router-link to="#" class="nav-link text-danger" @click="loggedOut()">Logout</router-link>
         </li>
       </ul>
     </div>

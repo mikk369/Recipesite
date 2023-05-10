@@ -64,10 +64,7 @@
         </form>
 
         <div class="button-wrapper mt-3">
-          <button
-            @click.prevent="updatePost()"
-            type="submit"
-            class="btn btn-success mx-3">
+          <button @click.prevent="updatePost()" type="submit" class="btn btn-success mx-3">
             Change
           </button>
           <router-link :to="{ name: 'recipe' }">
@@ -98,7 +95,7 @@ export default {
   },
   async created() {
     const response = await axios.get(
-      'http://localhost:3000/api/v1/posts/' + this.$route.params.id
+      'https://recipenode.themikk.ee/api/v1/posts/' + this.$route.params.id
     );
     (this.title = response.data.post.title),
       (this.country = response.data.post.country),
@@ -118,20 +115,14 @@ export default {
           description: this.description,
           ingredients: this.ingredients,
           directions: this.directions,
-          image: this.updatedImage
-            ? URL.createObjectURL(this.updatedImage)
-            : this.image,
+          image: this.updatedImage ? URL.createObjectURL(this.updatedImage) : this.image,
         };
 
-        await axios.patch(
-          'http://localhost:3000/api/v1/posts/' + this.$route.params.id,
-          postData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`, // send the JWT token in the request headers
-            },
-          }
-        );
+        await axios.patch('http://localhost:3000/api/v1/posts/' + this.$route.params.id, postData, {
+          headers: {
+            Authorization: `Bearer ${token}`, // send the JWT token in the request headers
+          },
+        });
       } catch (error) {
         // this.errorMsg = error.response.error;
         console.log(`error ${error}`);
