@@ -3,8 +3,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 //token function so dont have to repeat code
-const signToken = ({ user_id, username }) => {
-  return jwt.sign({ user_id, username }, process.env.SECRET_KEY, {
+const signToken = (id, username) => {
+  return jwt.sign({ id, username }, process.env.SECRET_KEY, {
     expiresIn: 1 * 24 * 60 * 60 * 1000,
   });
 };
@@ -19,9 +19,7 @@ exports.signup = async (req, res, next) => {
     }
     // check if password is at least 8 characters
     if (password.length < 8) {
-      return res
-        .status(400)
-        .json({ error: 'Password must be at least 8 characters' });
+      return res.status(400).json({ error: 'Password must be at least 8 characters' });
     }
     // check if user already exists
     const userExists = await User.checkUser(username, email);
@@ -32,9 +30,7 @@ exports.signup = async (req, res, next) => {
     const newUser = await User.createUser(username, email, password);
     //token
     const token = signToken(newUser.user_id);
-    return res
-      .status(201)
-      .json({ message: 'User created successfully', token, user: newUser });
+    return res.status(201).json({ message: 'User created successfully', token, user: newUser });
   } catch (error) {
     return next(error);
   }
@@ -72,11 +68,11 @@ exports.login = async (req, res, next) => {
       );
     }
     // if ok, send token
-    const token = signToken({ user_id: user.user_id, username: user.username });
+    const token = signToken(user.user_id, user.username);
     // put token into cookie
     res.cookie('jwt', token, {
       expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
-      secure: true,
+      // secure: true,
       httpOnly: true,
     });
     // removes password from output
