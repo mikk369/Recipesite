@@ -36,35 +36,47 @@ const Post = {
   getPostById: (id) => {
     return new Promise((resolve, reject) => {
       try {
-        pool.query(
-          'SELECT * FROM posts WHERE id = ?',
-          [id],
-          (error, results) => {
-            if (error) reject(error);
-            resolve(results[0]);
-          }
-        );
+        pool.query('SELECT * FROM posts WHERE id = ?', [id], (error, results) => {
+          if (error) reject(error);
+          resolve(results[0]);
+        });
       } catch (error) {
         console.log(error);
         reject(error);
       }
     });
   },
-  createPost: (
-    title,
-    ingredients,
-    directions,
-    country,
-    description,
-    image,
-    author_id,
-    username
-  ) => {
+  createPost: (postData) => {
+    const { title, ingredients, directions, country, description, image, author_id, username } =
+      postData;
     return new Promise((resolve, reject) => {
-      try {
-        pool.query(
-          'INSERT INTO posts (title,ingredients,directions,country,description,image,author_id,username) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-          [
+      const query = `
+        INSERT INTO posts (
+          title,
+          ingredients,
+          directions,
+          country,
+          description,
+          image,
+          author_id,
+          username
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      `;
+      const values = [
+        title,
+        ingredients,
+        directions,
+        country,
+        description,
+        image,
+        author_id,
+        username,
+      ];
+      pool.query(query, values, (error, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          const newPost = {
             title,
             ingredients,
             directions,
@@ -73,37 +85,15 @@ const Post = {
             image,
             author_id,
             username,
-          ],
-          (error, results) => {
-            if (error) reject(error);
-            resolve({
-              id: results.insertId,
-              title: title,
-              ingredients: ingredients,
-              directions: directions,
-              country: country,
-              description: description,
-              image: image,
-              author_id: author_id,
-              username: username,
-            });
-          }
-        );
-      } catch (error) {
-        reject(error);
-      }
+            id: results.insertId, // add id to the new post object
+          };
+          resolve(newPost);
+        }
+      });
     });
   },
 
-  updatePost: (
-    id,
-    title,
-    ingredients,
-    directions,
-    country,
-    description,
-    image
-  ) => {
+  updatePost: (id, title, ingredients, directions, country, description, image) => {
     return new Promise((resolve, reject) => {
       try {
         pool.query(
@@ -111,13 +101,10 @@ const Post = {
           [title, ingredients, directions, country, description, image, id],
           (error, results) => {
             if (error) throw error;
-            pool.query(
-              `SELECT * FROM posts WHERE id = ${id}`,
-              (error, results) => {
-                if (error) throw error;
-                resolve(results[0]);
-              }
-            );
+            pool.query(`SELECT * FROM posts WHERE id = ${id}`, (error, results) => {
+              if (error) throw error;
+              resolve(results[0]);
+            });
           }
         );
       } catch (error) {
