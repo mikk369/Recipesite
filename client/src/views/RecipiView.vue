@@ -116,8 +116,11 @@ export default {
     margin-top: 30px;
   }
 }
-.ingredients {
+
+.ingredients,
+.directions {
   list-style: none;
+  word-wrap: break-word;
 }
 .buttons-wrapper {
   width: 350px;
